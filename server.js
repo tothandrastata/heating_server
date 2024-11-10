@@ -1,7 +1,10 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
+
+app.use(cors()); // Enable CORS for all routes (for successful localhost fetch in React)
 app.use(express.json()); // Middleware to parse JSON bodies
 
 const  status =`{
