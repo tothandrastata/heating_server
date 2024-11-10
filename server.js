@@ -9,12 +9,16 @@ var status = {
     {
       id: 0, 
       name: "Nappali",
-      status: "OK",
+      room_temp: 22,
+      temp_on: 20,
+      temp_off: 25,
     },
     { 
       id: 1,
       name: "Konyha",
-      status: "OK",
+      room_temp: 23,
+      temp_on: 20,
+      temp_off: 25,
     }
   ]
 }
@@ -31,7 +35,7 @@ res.send('Hello Kincso, I am your API server')
 })
 
 app.get('/api/status', (req, res) => {
-  res.send(status);
+  res.jdon(status);
   console.log("GET received to send this status", status);
   })
 
