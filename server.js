@@ -7,24 +7,24 @@ const cors = require('cors');
 app.use(cors()); // Enable CORS for all routes (for successful localhost fetch in React)
 app.use(express.json()); // Middleware to parse JSON bodies
 
-const  status =`{
-  "zones": [
+const  status = {
+  zones: [
     {
-      "id": 0, 
-      "name": "Nappali",
-      "room_temp": 22,
-      "temp_on": 20,
-      "temp_off": 25
+      id: 0, 
+      name: "Nappali",
+      room_temp: 22,
+      temp_on: 20,
+      temp_off: 25
     },
     { 
-      "id": 1,
-      "name": "Konyha",
-      "room_temp": 23,
-      "temp_on": 20,
-      "temp_off": 25
+      id: 1,
+      name: "Konyha",
+      room_temp: 23,
+      temp_on: 20,
+      temp_off: 25
     }
   ]
-}`
+}
 
 
 
@@ -38,7 +38,7 @@ res.send('Hello Kincso, I am your API server')
 })
 
 app.get('/api/status', (req, res) => {
-  const jsonData = JSON.parse(status);
+  const jsonData = status;
   console.log("GET received to send this status", JSON.stringify(jsonData, null, 2));
   res.json(jsonData);
   })
