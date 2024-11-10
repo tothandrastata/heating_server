@@ -7,22 +7,21 @@ app.use(express.json()); // Middleware to parse JSON bodies
 var status = {
   zones: [
     {
-      id: 0, 
-      name: "Nappali",
-      room_temp: 22,
-      temp_on: 20,
-      temp_off: 25,
+      "id": 0, 
+      "name": "Nappali",
+      "room_temp": 22,
+      "temp_on": 20,
+      "temp_off": 25,
     },
     { 
-      id: 1,
-      name: "Konyha",
-      room_temp: 23,
-      temp_on: 20,
-      temp_off: 25,
+      "id": 1,
+      "name": "Konyha",
+      "room_temp": 23,
+      "temp_on": 20,
+      "temp_off": 25,
     }
   ]
 }
-
 
 
 // This code sets up a GET request handler for the /api/descriptor endpoint, 
