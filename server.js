@@ -36,7 +36,7 @@ res.send('Hello Kincso, I am your API server')
 
 app.get('/api/status', (req, res) => {
   const jsonData = JSON.parse(status);
-  console.log("GET received to send this status", jsonData);
+  console.log("GET received to send this status", jsonData.JSON.stringify());
   res.json(jsonData);
   })
 
