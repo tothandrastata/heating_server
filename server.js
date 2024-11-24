@@ -33,7 +33,7 @@ const height = 400; //px
 const backgroundColour = 'white'; // Uses https://www.w3schools.com/tags/canvas_fillstyle.asp
 const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height, backgroundColour });
 
-const line_charts = [
+const zone0_line_chart = [
       {
           type: 'line',   // for line chart
           data: {
@@ -42,7 +42,7 @@ const line_charts = [
                   label: "Temperature Last Hour",
                   data: [20, 21, 22, 22, 21, 20],
                   fill: false,
-                  borderColor: ['rgb(51, 204, 204)'],
+                  borderColor: ["red"],
                   borderWidth: 1,
                   xAxisID: 'Time' //define top or bottom axis ,modifies on scale
               }
@@ -67,7 +67,7 @@ const line_charts = [
                   label: "Temperature Last Day",
                   data: [18, 20, 21, 22, 22, 20],
                   fill: false,
-                  borderColor: ['rgb(51, 204, 204)'],
+                  borderColor: ['red'],
                   borderWidth: 1,
                   xAxisID: 'Time' //define top or bottom axis ,modifies on scale
               }
@@ -92,6 +92,83 @@ const line_charts = [
                 label: "AVG Temperature Last Week",
                 data: [20, 21, 19, 18, 22, 23, 20],
                 fill: false,
+                borderColor: ['red'],
+                borderWidth: 1,
+                xAxisID: 'Day' //define top or bottom axis ,modifies on scale
+            }
+            ],
+
+        },
+        options: {
+            scales: {
+                y: {
+                    suggestedMin: 10,
+                    suggestedMax: 30,
+                }
+            }
+        }
+      }
+    ];
+
+    const zone1_line_chart = [
+      {
+          type: 'line',   // for line chart
+          data: {
+              labels: ["-50 min", "-40 min", "-30 min", "-20 min", "-10 min", "Now"],
+              datasets: [{
+                  label: "Temperature Last Hour",
+                  data: [19, 18, 20, 21, 20, 19],
+                  fill: false,
+                  borderColor: ['rgb(51, 204, 204)'],
+                  borderWidth: 1,
+                  xAxisID: 'Time' //define top or bottom axis ,modifies on scale
+              }
+              ],
+
+          },
+          options: {
+              scales: {
+                  y: {
+                      suggestedMin: 10,
+                      suggestedMax: 30,
+                  }
+              }
+          }
+      },
+
+      {
+          type: 'line',   // for line chart
+          data: {
+              labels: ["0:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+              datasets: [{
+                  label: "Temperature Last Day",
+                  data: [20, 18, 20, 19, 20, 21],
+                  fill: false,
+                  borderColor: ['rgb(51, 204, 204)'],
+                  borderWidth: 1,
+                  xAxisID: 'Time' //define top or bottom axis ,modifies on scale
+              }
+              ],
+
+          },
+          options: {
+              scales: {
+                  y: {
+                      suggestedMin: 10,
+                      suggestedMax: 30,
+                  }
+              }
+          }
+      },
+
+      {
+        type: 'line',   // for line chart
+        data: {
+            labels: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
+            datasets: [{
+                label: "AVG Temperature Last Week",
+                data: [19, 20, 21, 19, 21, 21, 20],
+                fill: false,
                 borderColor: ['rgb(51, 204, 204)'],
                 borderWidth: 1,
                 xAxisID: 'Day' //define top or bottom axis ,modifies on scale
@@ -108,7 +185,10 @@ const line_charts = [
             }
         }
       }
-    ]
+    ];
+
+
+const line_charts = [ zone0_line_chart, zone1_line_chart ];
 
 // This code sets up a GET request handler for the /api/descriptor endpoint, 
 // and when accessed, it responds with a JSON object containing a message.
@@ -138,7 +218,7 @@ app.get('/api/tempgraph', async (req, res) => {
 
     // generate and save the chart in PNG format
 
-    let base64Data = await getChart(0,req.query?.timespan);
+    let base64Data = await getChart(req.query?.zone,req.query?.timespan);
 
     res.end(base64Data, 'base64');
 
@@ -171,7 +251,7 @@ const getChart = async (zone, timespan) => {
 
   console.log("Generating chart for zone ", zone, " timespan ", timespan);
 
-  const dataUrl = await chartJSNodeCanvas.renderToDataURL( line_charts[timespan?timespan:0]);
+  const dataUrl = await chartJSNodeCanvas.renderToDataURL( line_charts[zone?zone:0][timespan?timespan:0]);
   const base64Image = dataUrl;
 
   var base64Data = base64Image.replace(/^data:image\/png;base64,/, "");
