@@ -47,10 +47,10 @@ app.get('/api/status', (req, res) => {
 
 // POST request handler for the /api/descriptor endpoint
 app.post('/api/status', (req, res) => {
-  const newStstus = req.body;
-  console.log("POST received with: ", newStstus);
+  const newStatus = req.body;
+  console.log("POST received with: ", newStatus);
   
-  fs.writeFile('./status.json', JSON.stringify(newStstus, null, 2), 'utf8', (err) => {
+  fs.writeFile('./status.json', JSON.stringify(newStatus.status, null, 2), 'utf8', (err) => {
       if (err) {
           res.status(500).json({ error: 'Failed to write file' });
           return;
@@ -59,7 +59,7 @@ app.post('/api/status', (req, res) => {
   });
 
   // update the status object
-  status = newStstus;
+  status = newStatus.status;
 });
 
 
