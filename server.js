@@ -7,13 +7,13 @@ const cors = require('cors');
 app.use(cors()); // Enable CORS for all routes (for successful localhost fetch in React)
 app.use(express.json()); // Middleware to parse JSON bodies
 
-const  status = {
+var  status = {
   zones: [
     {
       id: 0, 
       name: "Nappali",
       room_temp: 22,
-      temp_on: 20,
+      temp_on: 20,    
       temp_off: 25
     },
     { 
@@ -43,29 +43,26 @@ app.get('/api/status', (req, res) => {
   res.json(jsonData);
   })
 
-/*
+
 
 // POST request handler for the /api/descriptor endpoint
 app.post('/api/status', (req, res) => {
-  const newDescriptor = req.body;
-  console.log("POST received to save this newDescriptor", newDescriptor);
+  const newStstus = req.body;
+  console.log("POST received with: ", newStstus);
   
-  fs.writeFile('./descriptor.json', JSON.stringify(newDescriptor, null, 2), 'utf8', (err) => {
+  fs.writeFile('./status.json', JSON.stringify(newStstus, null, 2), 'utf8', (err) => {
       if (err) {
           res.status(500).json({ error: 'Failed to write file' });
           return;
       }
-      res.status(200).json({ message: 'Descriptor saved successfully' });
+      res.status(200).json({ message: 'Status saved successfully' });
   });
 
-  (newDescriptor.descriptor.task.value == 1) && generateRoomManagementConfig(newDescriptor);
-  (newDescriptor.descriptor.task.value == 2) && generateCiscoConfig(newDescriptor);   
-  (newDescriptor.descriptor.task.value == 5) && generateTouchpanelConfig(newDescriptor);
-
-  if (newDescriptor.descriptor.ip_address !== "0.0.0.0") uploadConfig(newDescriptor.descriptor.ip_address, newDescriptor.descriptor.password, "Generated_Config.zip");
+  // update the status object
+  status = newStstus;
 });
 
-*/
+
 // Start the server
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
